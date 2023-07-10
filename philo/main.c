@@ -6,11 +6,21 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:59:20 by smorphet          #+#    #+#             */
-/*   Updated: 2023/07/10 12:15:00 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:52:09 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+static void	init_philo(t_prog *prog, int i)
+{
+	prog->philo_array[i]->fork_l = i;
+	prog->philo_array[i]->fork_r = (i + 1) % \
+	prog->number_of_philos;
+	prog->philo_array[i]->philo_index = i;
+	prog->philo_array[i]->prog_info = prog;
+	prog->philo_array[i]->eaten_count = 0;
+}
 
 void	make_threads(t_prog *prog)
 {
@@ -22,17 +32,14 @@ void	make_threads(t_prog *prog)
 	{
 		if (pthread_mutex_init(&prog->philo_array[i]->eaten_mutex, NULL) != 0)
 			printf("\n Eat mutex init has failed\n");
-		prog->philo_array[i]->fork_l = i;
-		prog->philo_array[i]->fork_r = (i + 1) % \
-		prog->number_of_philos;
-		prog->philo_array[i]->philo_index = i;
-		prog->philo_array[i]->prog_info = prog;
-		prog->philo_array[i]->eaten_count = 0;
+		init_philo(prog, i);
 		if (pthread_create(&prog->philo_array[i]->thread, NULL, \
 		(void *) philo_routine, (void *) prog->philo_array[i]) != 0)
 		{
 			printf("Failed to create the thread\n");
-			break ;
+			prog->death_flag = 1;
+			pthread_mutex_unlock(&prog->hordor);
+			return ;
 		}
 		i++;
 	}
@@ -50,12 +57,15 @@ void	clean_up(t_prog *prog)
 	{
 		while (count < prog->number_of_philos)
 		{
-			free(prog->philo_array[count]);
+			pthread_mutex_destroy(&prog->philo_array[count]->eaten_mutex);
+			if (prog->philo_array[count])
+				free(prog->philo_array[count]);
 			count++;
 		}
 		free(prog->philo_array);
 	}
 	pthread_mutex_destroy(&prog->hordor);
+	pthread_mutex_destroy(&prog->death_mutex);
 	while (count < prog->number_of_philos)
 	{
 		pthread_mutex_destroy(&prog->forks[count]);
@@ -78,7 +88,10 @@ int	main(int argc, char **argv)
 	}
 	if (process_argv(argv, argc) == ERROR || \
 	initialize_struct(argv, &prog) == ERROR)
+	{
+		clean_up(&prog);
 		return (0);
+	}
 	make_threads(&prog);
 	ft_pthread_exit(&prog);
 	pthread_join(prog.monitoring_thread, NULL);
