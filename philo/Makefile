@@ -6,7 +6,7 @@
 #    By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 13:37:37 by smorphet          #+#    #+#              #
-#    Updated: 2023/07/10 13:52:25 by smorphet         ###   ########.fr        #
+#    Updated: 2023/07/10 15:31:42 by smorphet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJ = $(SRC:.c=.o)
 INC := philosophers.h
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -pthread
+FLAGS = -Wall -Wextra -Werror -pthread -g -fsanitize=address
 
 all: $(NAME)
 

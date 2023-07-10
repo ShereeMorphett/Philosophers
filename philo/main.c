@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:59:20 by smorphet          #+#    #+#             */
-/*   Updated: 2023/07/10 13:52:09 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:35:45 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	clean_up(t_prog *prog)
 				free(prog->philo_array[count]);
 			count++;
 		}
-		free(prog->philo_array);
+		if (prog->philo_array)
+			free(prog->philo_array);
 	}
 	pthread_mutex_destroy(&prog->hordor);
 	pthread_mutex_destroy(&prog->death_mutex);
@@ -86,8 +87,9 @@ int	main(int argc, char **argv)
 		printf("Optional: number_of_times_each_philosopher_must_eat\n");
 		return (0);
 	}
-	if (process_argv(argv, argc) == ERROR || \
-	initialize_struct(argv, &prog) == ERROR)
+	if (process_argv(argv, argc) == ERROR)
+		return (0);
+	if (initialize_struct(argv, &prog) == ERROR)
 	{
 		clean_up(&prog);
 		return (0);

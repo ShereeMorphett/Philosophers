@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:58:42 by smorphet          #+#    #+#             */
-/*   Updated: 2023/07/10 12:13:49 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:34:46 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,17 @@ int	take_fork(t_philo *philo)
 		if (!pthread_mutex_lock(&philo->prog_info->forks[philo->fork_r]))
 		{
 			count++;
-			if (philo->prog_info->number_of_philos == 1)
-				printer(philo, "has taken a fork\n");
+			printer(philo, "has taken a fork\n");
 		}
 		if (!pthread_mutex_lock(&philo->prog_info->forks[philo->fork_l]))
 			count++;
 		if (count == 2)
 		{
 			printer(philo, "has taken a fork\n");
-			printer(philo, "has taken a fork\n");
 			return (SUCCESS);
 		}
 		else
-		{
-			pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_r]);
 			usleep(100);
-		}
 	}
 }
 
