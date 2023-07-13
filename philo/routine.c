@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:58:42 by smorphet          #+#    #+#             */
-/*   Updated: 2023/07/10 15:34:46 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:31:41 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static void	eat_sleep_think(t_philo *philo)
 	pthread_mutex_unlock(&philo->eaten_mutex);
 	printer(philo, "is eating\n");
 	non_usleep(philo->prog_info->time_to_eat, philo->prog_info);
+	printer(philo, "is sleeping\n");
 	pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_r]);
 	pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_l]);
-	printer(philo, "is sleeping\n");
 	non_usleep(philo->prog_info->time_to_sleep, philo->prog_info);
 	printer(philo, "is thinking\n");
 }
