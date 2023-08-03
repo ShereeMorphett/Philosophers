@@ -19,7 +19,6 @@ The simulation involves one or more philosophers sitting at a round table. In th
 
 ## Program Execution
 
-The program should be executed with the following command-line arguments:
 ```
 ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
 ```
@@ -30,7 +29,6 @@ The program should be executed with the following command-line arguments:
 - `number_of_times_each_philosopher_must_eat` (optional): If provided, the simulation stops when all philosophers have eaten at least this many times.
 
 ## Log Format
-
 ```
 timestamp_in_ms X has taken a fork
 timestamp_in_ms X is eating
@@ -40,21 +38,20 @@ timestamp_in_ms X died
 ```
 **Technical Skills Highlight:**
 
-* **Threading and Mutex Management:** The programmer skillfully manages multiple threads (representing philosophers) and ensures thread safety using mutexes, preventing deadlocks and data races.
-  * **Dynamic Memory Allocation:** Efficiently allocates memory for the philosopher and fork structures using `malloc`, ensuring proper memory management to avoid leaks.
-  * **Time Management:** Implements functions to accurately track the simulation timeline, crucial for preventing philosopher starvation and ensuring smooth execution.
-  * **Command-line Argument Handling:** Skillfully parses and processes command-line arguments, validating and extracting required parameters for the simulation.
-  * **Debugging and Error Handling:** Implements error handling mechanisms and provides informative error messages, aiding in debugging and improving reliability.
+* Threading and Mutex Management.
+  * Dynamic Memory Allocation. 
+  * Time Management Implements.
+  * Command-line Argument Handling.
+  * Debugging and Error Handling.
 
 **Soft Skills Highlight:**
 
-- **Problem Solving:** Tackles the "Dining Philosophers Problem" with a thoughtful and well-designed approach, delivering an efficient and deadlock-free solution.
-- **Organization and Code Structure:** The code is well-organized, with functions for specific tasks, improving code readability and maintainability. Separating responsibilities into functions enhances code modularity.
-- **Communication:** Accompanies code with clear comments and informative print statements, showcasing effective communication and facilitating understanding.
-- **Organization and Code Structure:** Follows a structured organization, using functions to separate responsibilities and improve code readability.
-- **Time Management and Planning:** Demonstrates good time management and planning skills, crucial for managing threads, mutexes, and time-sensitive operations.x
-- **Attention to Detail:** Pays careful attention to handling edge cases, validating input parameters, and ensuring accurate time calculations, resulting in a reliable and robust simulation.
-
+* Problem Solving.
+  * Organization and Code Structure.
+  * Communication.
+  * Organization and Code Structure.
+  * Time Management and Planning.
+  * Attention to Detail.
 
 
 ## Disclaimer
