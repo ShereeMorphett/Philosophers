@@ -12,10 +12,10 @@
 
 #include "philosophers.h"
 
-static void	are_they_full(t_prog *prog)
+static void are_they_full(t_prog *prog)
 {
-	int	full;
-	int	count;
+	int full;
+	int count;
 
 	full = 0;
 	count = 0;
@@ -39,10 +39,10 @@ static void	are_they_full(t_prog *prog)
 	}
 }
 
-static int	check_death(t_prog *prog, int counter)
+static int check_death(t_prog *prog, int counter)
 {
 	pthread_mutex_lock(&prog->philo_array[counter]->eaten_mutex);
-	if ((get_time() - prog->philo_array[counter]->time_last_ate) > \
+	if ((get_time() - prog->philo_array[counter]->time_last_ate) >
 		(long)prog->time_to_die)
 	{
 		pthread_mutex_unlock(&prog->philo_array[counter]->eaten_mutex);
@@ -59,12 +59,10 @@ static int	check_death(t_prog *prog, int counter)
 	return (1);
 }
 
-void	monitoring(t_prog *prog)
+void monitoring(t_prog *prog)
 {
-	int	counter;
-	int	full;
+	int counter;
 
-	full = 0;
 	non_usleep(0.7 * prog->time_to_die, prog);
 	while (1)
 	{
@@ -74,9 +72,9 @@ void	monitoring(t_prog *prog)
 		while (counter != prog->number_of_philos)
 		{
 			if (!check_death(prog, counter))
-				return ;
+				return;
 			counter++;
 		}
 	}
-	return ;
+	return;
 }

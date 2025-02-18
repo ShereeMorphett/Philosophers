@@ -12,9 +12,9 @@
 
 #include "philosophers.h"
 
-int	take_fork(t_philo *philo)
+int take_fork(t_philo *philo)
 {
-	int	count;
+	int count;
 
 	while (1)
 	{
@@ -36,7 +36,7 @@ int	take_fork(t_philo *philo)
 	}
 }
 
-static void	eat_sleep_think(t_philo *philo)
+static void eat_sleep_think(t_philo *philo)
 {
 	take_fork(philo);
 	pthread_mutex_lock(&philo->eaten_mutex);
@@ -52,9 +52,9 @@ static void	eat_sleep_think(t_philo *philo)
 	printer(philo, "is thinking\n");
 }
 
-int	philo_routine(void *philo_data)
+void *philo_routine(void *philo_data)
 {
-	t_philo	*philo;
+	t_philo *philo;
 
 	philo = (t_philo *)philo_data;
 	pthread_mutex_lock(&philo->prog_info->hordor);
@@ -74,9 +74,9 @@ int	philo_routine(void *philo_data)
 		if (philo->prog_info->death_flag == 1)
 		{
 			pthread_mutex_unlock(&philo->prog_info->death_mutex);
-			break ;
+			break;
 		}
 		pthread_mutex_unlock(&philo->prog_info->death_mutex);
 	}
-	return (0);
+	return (NULL);
 }

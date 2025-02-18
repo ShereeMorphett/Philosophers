@@ -19,7 +19,7 @@ OBJ = $(SRC:.c=.o)
 INC := philosophers.h
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -pthread
+FLAGS = -Wall -Wextra -Werror -pthread -pedantic -g
 
 all: $(NAME)
 
